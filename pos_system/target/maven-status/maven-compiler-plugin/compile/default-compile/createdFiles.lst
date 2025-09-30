@@ -1,0 +1,9 @@
+javaman\testApp\ServletInitializer.class
+javaman\testApp\WebSecurityConfiguration.class
+javaman\testApp\Repository\MyUserRepository.class
+javaman\testApp\Controller\HomeController.class
+javaman\testApp\POSApplication.class
+javaman\testApp\Model\myUser.class
+javaman\testApp\AuthenticationSuccessHandler.class
+javaman\testApp\Services\MyUserDetailService.class
+javaman\testApp\Controller\LoginController.class

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Bar Chart | TailAdmin - Tailwind CSS Admin Dashboard Template</title>
+    <link rel="icon" href="favicon.ico" />
+    <link href="/tailadmin/style.css" rel="stylesheet" />
+    <script data-cfasync="false" nonce="42b4e2ce-4ac3-491c-89b5-4925820d5e56">
+      try {
+        (function (w, d) {
+          !(function (fv, fw, fx, fy) {
+            if (fv.zaraz) console.error("zaraz is loaded twice");
+            else {
+              fv[fx] = fv[fx] || {};
+              fv[fx].executed = [];
+              fv.zaraz = { deferred: [], listeners: [] };
+              fv.zaraz._v = "5858";
+              fv.zaraz._n = "42b4e2ce-4ac3-491c-89b5-4925820d5e56";
+              fv.zaraz.q = [];
+              fv.zaraz._f = function (fz) {
+                return async function () {
+                  var fA = Array.prototype.slice.call(arguments);
+                  fv.zaraz.q.push({ m: fz, a: fA });
+                };
+              };
+              for (const fB of ["track", "set", "debug"])
+                fv.zaraz[fB] = fv.zaraz._f(fB);
+              fv.zaraz.init = () => {
+                var fC = fw.getElementsByTagName(fy)[0],
+                  fD = fw.createElement(fy),
+                  fE = fw.getElementsByTagName("title")[0];
+                fE && (fv[fx].t = fw.getElementsByTagName("title")[0].text);
+                fv[fx].x = Math.random();
+                fv[fx].w = fv.screen.width;
+                fv[fx].h = fv.screen.height;
+                fv[fx].j = fv.innerHeight;
+                fv[fx].e = fv.innerWidth;
+                fv[fx].l = fv.location.href;
+                fv[fx].r = fw.referrer;
+                fv[fx].k = fv.screen.colorDepth;
+                fv[fx].n = fw.characterSet;
+                fv[fx].o = new Date().getTimezoneOffset();
+                if (fv.dataLayer)
+                  for (const fF of Object.entries(
+                    Object.entries(dataLayer).reduce(
+                      (fG, fH) => ({ ...fG[1], ...fH[1] }),
+                      {}
+                    )
+                  ))
+                    zaraz.set(fF[0], fF[1], { scope: "page" });
+                fv[fx].q = [];
+                for (; fv.zaraz.q.length; ) {
+                  const fI = fv.zaraz.q.shift();
+                  fv[fx].q.push(fI);
+                }
+                fD.defer = !0;
+                for (const fJ of [localStorage, sessionStorage])
+                  Object.keys(fJ || {})
+                    .filter((fL) => fL.startsWith("_zaraz_"))
+                    .forEach((fK) => {
+                      try {
+                        fv[fx]["z_" + fK.slice(7)] = JSON.parse(fJ.getItem(fK));
+                      } catch {
+                        fv[fx]["z_" + fK.slice(7)] = fJ.getItem(fK);
+                      }
+                    });
+                fD.referrerPolicy = "origin";
+                fD.src =
+                  "/cdn-cgi/zaraz/s.js?z=" +
+                  btoa(encodeURIComponent(JSON.stringify(fv[fx])));
+                fC.parentNode.insertBefore(fD, fC);
+              };
+              ["complete", "interactive"].includes(fw.readyState)
+                ? zaraz.init()
+                : fv.addEventListener("DOMContentLoaded", zaraz.init);
+            }
+          })(w, d, "zarazData", "script");
+          window.zaraz._p = async (eC) =>
+            new Promise((eD) => {
+              if (eC) {
+                eC.e &&
+                  eC.e.forEach((eE) => {
+                    try {
+                      const eF = d.querySelector("script[nonce]"),
+                        eG = eF?.nonce || eF?.getAttribute("nonce"),
+                        eH = d.createElement("script");
+                      eG && (eH.nonce = eG);
+                      eH.innerHTML = eE;
+                      eH.onload = () => {
+                        d.head.removeChild(eH);
+                      };
+                      d.head.appendChild(eH);
+                    } catch (eI) {
+                      console.error(`Error executing script: ${eE}\n`, eI);
+                    }
+                  });
+                Promise.allSettled(
+                  (eC.f || []).map((eJ) => fetch(eJ[0], eJ[1]))
+                );
+              }
+              eD();
+            });
+          zaraz._p({ e: ["(function(w,d){})(window,document)"] });
+        })(window, document);
+      } catch (e) {
+        throw (fetch("/cdn-cgi/zaraz/t"), e);
+      }
+    </script>
+  </head>
+  <body
+    x-data="{ page: 'barChart', 'loaded': true, 'darkMode': false, 'stickyMenu': false, 'sidebarToggle': false, 'scrollTop': false }"
+    x-init="
+         darkMode = JSON.parse(localStorage.getItem('darkMode'));
+         $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))"
+    :class="{'dark bg-gray-900': darkMode === true}"
+  >
+    <!-- ===== Preloader Start ===== -->
+    <div
+      x-show="loaded"
+      x-init="window.addEventListener('DOMContentLoaded', () => {setTimeout(() => loaded = false, 500)})"
+      class="fixed left-0 top-0 z-999999 flex h-screen w-screen items-center justify-center bg-white dark:bg-black"
+    >
+      <div
+        class="h-16 w-16 animate-spin rounded-full border-4 border-solid border-brand-500 border-t-transparent"
+      ></div>
+    </div>
+
+    <!-- ===== Preloader End ===== -->
+
+    <!-- ===== Page Wrapper Start ===== -->
+    <div class="flex h-screen overflow-hidden">
+      <!-- ===== Sidebar Start ===== -->
+      <div id="aside-container"></div>
+
+      <!-- ===== Sidebar End ===== -->
+
+      <!-- ===== Content Area Start ===== -->
+      <div
+        class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden"
+      >
+        <!-- Small Device Overlay Start -->
+        <div
+          :class="sidebarToggle ? 'block xl:hidden' : 'hidden'"
+          class="fixed z-50 h-screen w-full bg-gray-900/50"
+        ></div>
+        <!-- Small Device Overlay End -->
+
+        <!-- ===== Header Start ===== -->
+        <div id="header-container"></div>
+        <!-- ===== Header End ===== -->
+
+        <!-- ===== Main Content Start ===== -->
+        <main>
+          <div class="mx-auto max-w-(--breakpoint-2xl) p-4 md:p-6">
+            <!-- Breadcrumb Start -->
+            <div x-data="{ pageName: `Bar Chart`}">
+              <div
+                class="flex flex-wrap items-center justify-between gap-3 pb-6"
+              >
+                <h2
+                  class="text-xl font-semibold text-gray-800 dark:text-white/90"
+                  x-text="pageName"
+                ></h2>
+                <nav>
+                  <ol class="flex items-center gap-1.5">
+                    <li>
+                      <a
+                        class="inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400"
+                        href="index.html"
+                      >
+                        Home
+                        <svg
+                          class="stroke-current"
+                          width="17"
+                          height="16"
+                          viewBox="0 0 17 16"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M6.0765 12.667L10.2432 8.50033L6.0765 4.33366"
+                            stroke=""
+                            stroke-width="1.2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                      </a>
+                    </li>
+                    <li
+                      class="text-sm text-gray-800 dark:text-white/90"
+                      x-text="pageName"
+                    ></li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+            <!-- Breadcrumb End -->
+
+            <div class="space-y-6">
+              <div
+                class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]"
+              >
+                <div class="px-6 py-5">
+                  <h3
+                    class="text-base font-medium text-gray-800 dark:text-white/90"
+                  >
+                    Bar Chart 1
+                  </h3>
+                </div>
+                <div
+                  class="border-t border-gray-100 p-5 dark:border-gray-800 sm:p-6"
+                >
+                  <!-- ====== Bar Chart One Start -->
+                  <div class="custom-scrollbar max-w-full overflow-x-auto">
+                    <div id="chartOne" class="min-w-[1000px]"></div>
+                  </div>
+                  <!-- ====== Bar Chart One End -->
+                </div>
+              </div>
+
+              <div
+                class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]"
+              >
+                <div class="px-6 py-5">
+                  <h3
+                    class="text-base font-medium text-gray-800 dark:text-white/90"
+                  >
+                    Bar Chart 2
+                  </h3>
+                </div>
+                <div
+                  class="border-t border-gray-100 p-5 dark:border-gray-800 sm:p-6"
+                >
+                  <!-- ====== Bar Chart Two Start -->
+                  <div class="custom-scrollbar max-w-full overflow-x-auto">
+                    <div id="chartSix" class="min-w-[1000px]"></div>
+                  </div>
+                  <!-- ====== Bar Chart Two End -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+        <!-- ===== Main Content End ===== -->
+      </div>
+      <!-- ===== Content Area End ===== -->
+    </div>
+    <!-- ===== Page Wrapper End ===== -->
+    <script
+      data-cfasync="false"
+      src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
+    ></script>
+    <script defer src="/tailadmin/bundle.js"></script>
+    <script
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
+      integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
+      data-cf-beacon='{"rayId":"970efd9c3df1e5c2","version":"2025.8.0","r":1,"token":"67f7a278e3374824ae6dd92295d38f77","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}}}'
+      crossorigin="anonymous"
+    ></script>
+    <script src="/tailadmin/app_js/app.js"></script>
+  </body>
+</html>
